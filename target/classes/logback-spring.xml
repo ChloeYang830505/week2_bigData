@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Example LOGBACK Configuration File
+  http://logback.qos.ch/manual/configuration.html
+  -->
+<configuration  scan="true" scanPeriod="30 seconds">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <jmxConfigurator/>
+    <springProfile name="dev">
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="console"/>
+        </root>
+       <logger name="com.wchy.haodaoda.dao" level="DEBUG"/>
+    </springProfile>
+
+    <springProfile name="test,online">
+        <property name="log.dir" value="${log.path}"/>
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${log.dir}/stdout.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${log.dir}/otherdays/stdout.%d{yyyy-MM-dd}.log</FileNamePattern>
+                <MaxHistory>7</MaxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${log.dir}/stderr.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} {%thread} %-5level %logger{50} - %msg%n</pattern>
+            </encoder>
+
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>WARN</level>
+            </filter>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <FileNamePattern>${log.dir}/otherdays/stderr.%d{yyyy-MM-dd}.log</FileNamePattern>
+                <MaxHistory>7</MaxHistory>
+            </rollingPolicy>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="FILE_ERROR"/>
+        </root>
+    </springProfile>
+
+</configuration>

@@ -1,3 +1,4 @@
+import BigData_week2.*;
 import Dto.MapperResultDto;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
@@ -42,7 +43,7 @@ public class WorkCount {
             FileOutputFormat.setOutputPath(jobSecond,
                     new Path("c:\\work\\test\\hadoop\\bb"));
 
-            jobSecond.setJarByClass(Second.class);
+            jobSecond.setJarByClass(WorkCount.class);
 
 
             jobSecond.setOutputKeyClass(Text.class);
@@ -51,7 +52,7 @@ public class WorkCount {
             jobSecond.setMapOutputKeyClass(MapperResultDto.class);
             jobSecond.setMapOutputValueClass(Text.class);
 
-job.waitForCompletion(true);
+            job.waitForCompletion(true);
 
 
             System.exit(jobSecond.waitForCompletion(true) ? 0 : 1);

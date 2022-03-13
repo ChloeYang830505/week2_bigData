@@ -1,7 +1,6 @@
 package Dto;
 
 import lombok.Data;
-import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;

@@ -1,3 +1,4 @@
+package BigData_week2;
 import Dto.MapperResultDto;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
